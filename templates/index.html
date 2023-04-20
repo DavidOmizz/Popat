@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events Today</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family:Arial, Helvetica, sans-serif
+        }
+        .events {
+            text-align: center;
+            font-size: xx-large;
+        }
+        .list-events {
+            display: flex;
+            /* color: #fff; */
+            padding: 20px;
+            width: auto;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        
+        .single-event {
+            /* background-color: red; */
+            margin: 10px;
+            border-radius: 20px;
+            /* border-top: 5px solid black; */
+            text-align: center;
+            /* padding: 10px; */
+            box-shadow: 5px 10px 10px rgba(0,0,0,0.2);
+            width: 30%;
+        }
+        .time {
+            color: #f97b00;
+            font-weight: bold;
+        }
+        .location {
+            color: #8d8f90;
+        }
+        .price {
+            color: #8d8f90;
+        }
+        .tittle {
+            width: fit-content;
+            height: fit-content;
+        }
+        
+        .list-events .single-event .tittle {
+            text-align: left;
+            font-size: 20px;
+            font-weight:bold;
+            line-height: 20px;
+        }
+        .list-events .single-event p {
+            text-align: start;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Events Today</h1>
+    <h2>One-time Events</h2>
+    <!-- <ul>
+        {% for event in events_today %}
+            <li>{{ event.title }}|{{ event.start_date }} to {{ event.end_date }}</li>
+            <img src="{{ event.image.url }}" alt="{{ event.title }}">
+        {% empty %}
+            <li>No events today.</li>
+        {% endfor %}
+    </ul> -->
+    <div class="events">
+        <h4>Events</h4>
+    </div>
+    <div class="list-events">
+        {% for event in events_today %}
+            <div class="single-event">
+                <img src="{{ event.image.url }}" width="400" height="200" alt="">
+                <p class="tittle">{{ event.title }}</p>
+                <p class="time">{{ event.end_date }}</p>
+                <p class="location">{{ event.location }}</p>
+                <p class="price">{{ event.price }}</p>
+                <p>{{ event.description }}</p>
+            </div>
+        {% empty %}
+            <li>No events today.</li>
+        {% endfor %}
+        <!-- <div class="single-event">
+            <img src="{% static 'images/lagos.jpg' %}" width="400" height="200" alt="">
+            <p class="tittle">Lagos Startup Expo 2023</p>
+            <p class="time">Sun, Apr 30, 12:30 PM</p>
+            <p class="location">Lagos Oriental Hotel • Lagos, LA</p>
+            <p class="price">Free</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe, at error tempore ducimus quos vel optio corporis quibusdam, hic dolor ea iusto vitae minus sint nam? Molestiae quisquam quam ipsum?</p>
+        </div>
+        <div class="single-event">
+            <img src="{% static 'images/africateen.jpg' %}" width="400" height="200" alt="">
+            <p class="tittle">Africa Teen Tech Festival 2023</p>
+            <p class="time">Sun, Apr 30, 12:30 PM</p>
+            <p class="location">Lagos Oriental Hotel • Lagos, LA</p>
+            <p class="price">Free</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe, at error tempore ducimus quos vel optio corporis quibusdam, hic dolor ea iusto vitae minus sint nam? Molestiae quisquam quam ipsum?</p>
+        </div>
+        <div class="single-event">
+            <img src="{% static 'images/co-create.png' %}" width="400" height="200" alt="">
+            <p class="tittle">C0-Create Africa Tech Exhibition 2023</p>
+            <p class="time">Sun, Apr 30, 12:30 PM</p>
+            <p class="location">Lagos Oriental Hotel • Lagos, LA</p>
+            <p class="price">Free</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe, at error tempore ducimus quos vel optio corporis quibusdam, hic dolor ea iusto vitae minus sint nam? Molestiae quisquam quam ipsum?</p>
+        </div> -->
+    </div>
+
+    <h2>Recurring Events</h2>
+    <ul>
+        {% for event in recurring_events_today %}
+            <li>{{ event.end_date }} -{{ event.title }} -- {{ event.start_time }} to {{ event.end_time }}</li>
+        {% empty %}
+            <li>No recurring events today.</li>
+        {% endfor %}
+    </ul>
+
+    
+</body>
+</html>

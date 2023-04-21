@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .sinle-event {
+            display: flex;
+            margin: auto;
+            box-shadow: 5px 10px 10px rgba(0,0,0,0.2);
+            padding: 50px;
+            width: 70%;
+        }
+        .decription {
+            margin-left: 40px;
+        }
+    </style>
+</head>
+<body>
+        <div class="sinle-event">
+            <div class="image">
+                <img src="{{ event.image.url }}" alt="">
+            </div>
+            <div class="decription">
+                <p>{{ event.title }}</p>
+                <p>{{ event.decription }}</p>
+                <p>{{ event.location }}</p>
+                <span>{{ event.start_date }}</span> -
+                <span>{{ event.end_date }}</span> (<span>{{ event.start_time }}- {{ event.end_time }}</span>)
+                <button>Make Reservations</button>
+            </div>
+        </div>
+        {% if form %}
+            <form method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button type="submit">Submit</button>
+            </form>
+        {% endif %}
+        
+    {% if event %}
+        <p>{{event.title}}</p>
+    {% endif %}
+</body>
+</html>

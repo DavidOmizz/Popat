@@ -76,6 +76,7 @@
         <h4>Events</h4>
     </div>
     <div class="list-events">
+        {% if events_today %}
         {% for event in events_today %}
             <div class="single-event">
                 <img src="{{ event.image.url }}" width="400" height="200" alt="">
@@ -84,10 +85,12 @@
                 <p class="location">{{ event.location }}</p>
                 <p class="price">{{ event.price }}</p>
                 <p>{{ event.description }}</p>
+                <button> <a href="{% url 'event-detail' event.id  %}">click</a></button>
             </div>
         {% empty %}
             <li>No events today.</li>
         {% endfor %}
+        {% endif %}
         <!-- <div class="single-event">
             <img src="{% static 'images/lagos.jpg' %}" width="400" height="200" alt="">
             <p class="tittle">Lagos Startup Expo 2023</p>

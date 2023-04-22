@@ -18,10 +18,13 @@ def index(request):
     
 
      # Filter recurring events that occur on the current day of the week
-    current_time = datetime.now().time()
+    current_time = datetime.now()
+    # start_date = events_today
     
-    events_today = Event.objects.filter(start_date__lte=today, end_date__gte=today, is_recurring=False,start_time__lte=current_time,
-        end_time__gte=current_time)
+    # events_today = Event.objects.filter(start_date__lte=today, end_date__gte=today, is_recurring=False,start_time__lte=current_time,
+    #     end_time__gte=current_time)
+    # events_today = Event.objects.filter(start_date__lte=current_time, end_date__gte=current_time, is_recurring=False)
+    events_today = Event.objects.filter(created_at__lte=current_time, end_date__gte=today, end_time__gte=current_time, is_recurring=False)
 
     current_day_of_week = today.strftime('%A')
     recurring_events_today = Event.objects.filter(
@@ -32,7 +35,8 @@ def index(request):
     )
     context = {
         'events_today': events_today,
-        'recurring_events_today': recurring_events_today
+        'recurring_events_today': recurring_events_today,
+        'current_time':current_time
     }
     return render(request, 'index.html', context)
 
@@ -82,6 +86,7 @@ def EventDetail(request, pk):
     event = get_object_or_404(Event, id=pk)
     template_name = 'event.html'
     reservation = None
+    form = MakeReservationForm()
     if event.is_private:
         # If the event is private, check if the user entered the correct password
         if request.method == 'POST':
@@ -101,7 +106,8 @@ def EventDetail(request, pk):
         else:
             form = MakeReservationForm()
             return render(request, 'event.html', {'event': event, 'form': form})
-    else:
+    # else:
+    elif not event.is_private:
         # If the event is not private, create reservation and redirect to confirmation page
         if request.method == 'POST':
             form = MakeReservationForm(request.POST)
@@ -111,9 +117,9 @@ def EventDetail(request, pk):
                 reservation.save()
                 return redirect(request.path_info)
                 # return HttpResponseRedirect(reverse('reservation_confirmation', args=(reservation.pk,)))
-        else:
-            form = MakeReservationForm()
-    return render(request, template_name, {'event': event, 'form': form})
+    else:
+        form = MakeReservationForm()
+    return render(request, template_name, {'form': form,'event': event,})
 
 
 

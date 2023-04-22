@@ -25,6 +25,7 @@ class Event(models.Model):
     price = models.CharField(max_length = 255,null=True)
     description = models.CharField(max_length = 255,null=True)
     location = models.CharField(max_length = 255, null =True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
     start_time = models.TimeField()
